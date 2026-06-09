@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OLEOTEKA | Produse Spaniole Premium în România</title>
+    <meta name="description" content="Delicatese spaniole premium în România: jamón ibérico, brânzeturi artizanale, ulei de măsline, conserve, produse la comandă pentru restaurante și experiențe gastronomice (carving, degustări).">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #8A8F0F;
+            --color-secondary: #C2B280;
+            --color-dark: #1a1a1a;
+            --color-cream: #F8F6F1;
+            --color-gold: #BFA76A;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); color: var(--color-dark); line-height: 1.6; background: var(--color-cream); }
+
+        /* ===== NAVIGATION ===== */
+        .nav {
+            position: fixed; top: 0; width: 100%;
+            padding: 0.55rem 4%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            transition: background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+        }
+        .nav.scrolled {
+            background: rgba(248, 246, 241, 0.97);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        .navbar-logo { height: 42px; width: auto; object-fit: contain; display: block; transition: transform 0.25s ease; }
+        .navbar-logo:hover { transform: scale(1.03); }
+        .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-links { display: flex; gap: 1.6rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--color-dark); font-weight: 500; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--color-primary); }
+        .nav-cta { background: var(--color-primary); color: white !important; padding: 0.55rem 1.1rem; border-radius: 4px; }
+        .nav-cta:hover { background: #72770c !important; color: white !important; }
+
+        .mobile-menu-btn { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+        .mobile-menu-btn span { width: 25px; height: 2px; background: var(--color-dark); transition: 0.3s; display: block; }
+
+        /* ===== HERO ===== */
+        .hero {
+            height: 100vh; min-height: 600px;
+            background: linear-gradient(rgba(22,22,22,0.55), rgba(22,22,22,0.65)), url('fotos/jamon/Jamon.JPG') center/cover;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; color: white; padding: 0 5%;
+        }
+        .hero-content { max-width: 900px; }
+        .hero-subtitle { font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase; color: var(--color-secondary); margin-bottom: 1.5rem; }
+        .hero h1 { font-family: var(--font-display); font-size: clamp(2.2rem, 6vw, 4.5rem); font-weight: 700; line-height: 1.1; margin-bottom: 1.5rem; }
+        .hero-description { font-size: 1.1rem; opacity: 0.9; max-width: 640px; margin: 0 auto 2.5rem; font-weight: 300; }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+        .btn { padding: 1rem 2.5rem; font-size: 1rem; font-weight: 600; text-decoration: none; border-radius: 4px; transition: all 0.3s; cursor: pointer; border: none; display: inline-block; }
+        .btn-primary { background: var(--color-secondary); color: var(--color-dark); }
+        .btn-primary:hover { background: #72770c; color: white; transform: translateY(-2px); }
+        .btn-outline { background: transparent; color: white; border: 2px solid white; }
+        .btn-outline:hover { background: white; color: var(--color-dark); }
+
+        /* ===== SECTIONS ===== */
+        section { padding: 6rem 5%; }
+        .section-header { text-align: center; max-width: 700px; margin: 0 auto 4rem; }
+        .section-tag { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 1rem; }
+        .section-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); color: var(--color-dark); margin-bottom: 1rem; }
+        .section-description { color: #666; font-size: 1.05rem; }
+
+        /* ===== CATEGORY CARDS ===== */
+        .products { background: white; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; max-width: 1400px; margin: 0 auto; }
+        .product-card { background: var(--color-cream); border-radius: 20px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0,0,0,0.08); }
+        .product-image { height: 240px; background-size: cover; background-position: center; }
+        .product-content { padding: 1.75rem; }
+        .product-content h3 { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 0.65rem; color: var(--color-dark); }
+        .product-content p { color: #666; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem; }
+        .product-link { color: var(--color-primary); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.5rem; transition: gap 0.2s; }
+        .product-link:hover { gap: 0.75rem; }
+
+        /* ===== CATALOG SECTION ===== */
+        .catalog { background: var(--color-cream); }
+
+        /* Special orders banner */
+        .special-orders {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 14px;
+            padding: 2rem 2.5rem;
+            max-width: 1100px;
+            margin: 0 auto 3rem;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.04);
+        }
+        .special-orders h3 { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--color-dark); }
+        .special-orders > p { color: #555; margin-bottom: 1rem; }
+        .special-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+        .special-pill {
+            background: var(--color-cream); border: 1px solid #e9e6de;
+            border-radius: 999px; padding: 0.3rem 0.9rem;
+            font-size: 0.85rem; color: #444;
+        }
+        .special-note { font-size: 0.9rem; color: #666; margin-bottom: 1.25rem; line-height: 1.6; }
+        .special-actions { display: flex; gap: 0.85rem; flex-wrap: wrap; }
+        .special-cta { display: inline-block; text-decoration: none; background: var(--color-primary); color: white; padding: 0.7rem 1.3rem; border-radius: 8px; font-weight: 600; font-size: 0.9rem; transition: background 0.25s; }
+        .special-cta:hover { background: #72770c; }
+        .special-cta-outline { display: inline-block; text-decoration: none; border: 2px solid var(--color-primary); color: var(--color-primary); padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 600; font-size: 0.9rem; transition: all 0.25s; }
+        .special-cta-outline:hover { background: var(--color-primary); color: white; }
+
+        /* Catalog filters */
+        .catalog-filters {
+            display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+        .filter-btn {
+            padding: 0.5rem 1.3rem; border: 2px solid #ddd; border-radius: 30px;
+            background: white; cursor: pointer; font-size: 0.9rem; font-weight: 500;
+            transition: all 0.25s; color: var(--color-dark); font-family: var(--font-body);
+        }
+        .filter-btn:hover, .filter-btn.active {
+            border-color: var(--color-primary); background: var(--color-primary); color: white;
+        }
+
+        /* Catalog grid */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 1.75rem; max-width: 1400px; margin: 0 auto;
+        }
+        .catalog-card {
+            background: white; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex; flex-direction: column;
+        }
+        .catalog-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.11); }
+
+        .catalog-card-image {
+            height: 210px; background: var(--color-cream);
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+        }
+        .catalog-card-image img { width: 100%; height: 100%; object-fit: cover; }
+
+        .catalog-card-badge {
+            position: absolute; top: 12px; left: 12px;
+            background: var(--color-primary); color: white;
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 3px;
+        }
+
+        .catalog-card-body { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; }
+        .catalog-card-category { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 0.4rem; }
+        .catalog-card-name { font-family: var(--font-display); font-size: 1.1rem; color: var(--color-dark); margin-bottom: 0.4rem; line-height: 1.3; }
+        .catalog-card-desc { font-size: 0.85rem; color: #777; flex: 1; line-height: 1.55; }
+
+        /* "Solicită ofertă" CTA at card bottom */
+        .catalog-card-footer { margin-top: 1.1rem; }
+        .catalog-card-cta {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            color: var(--color-primary); font-weight: 600; font-size: 0.85rem;
+            text-decoration: none; transition: gap 0.2s;
+        }
+        .catalog-card-cta:hover { gap: 0.65rem; }
+
+        /* ===== EXPERIENCE SECTION ===== */
+        .experience { background: var(--color-dark); color: white; }
+        .experience .section-tag { color: var(--color-secondary); }
+        .experience .section-title { color: white; }
+        .experience .section-description { color: rgba(255,255,255,0.7); }
+        .experience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; max-width: 1200px; margin: 0 auto; }
+        .experience-card {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px; padding: 2.5rem; text-align: center; transition: background 0.3s;
+        }
+        .experience-card:hover { background: rgba(255,255,255,0.08); }
+        .experience-icon {
+            width: 80px; height: 80px; background: var(--color-primary); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1.5rem; font-size: 2rem;
+        }
+        .experience-card h3 { font-family: var(--font-display); font-size: 1.45rem; margin-bottom: 0.9rem; }
+        .experience-card > p { color: rgba(255,255,255,0.7); margin-bottom: 1.5rem; font-size: 0.97rem; line-height: 1.6; }
+        .experience-features { list-style: none; text-align: left; }
+        .experience-features li { padding: 0.45rem 0; color: rgba(255,255,255,0.8); display: flex; align-items: center; gap: 0.75rem; font-size: 0.93rem; }
+        .experience-features li::before { content: "✓"; color: var(--color-secondary); font-weight: bold; flex-shrink: 0; }
+        .experience-cta { margin-top: 3rem; text-align: center; }
+        .experience-cta a { background: var(--color-secondary); color: var(--color-dark); padding: 1rem 2.5rem; border-radius: 4px; text-decoration: none; font-weight: 700; font-size: 1rem; transition: all 0.3s; display: inline-block; }
+        .experience-cta a:hover { background: #a89660; transform: translateY(-2px); }
+
+        /* ===== ABOUT ===== */
+        .about { background: var(--color-cream); }
+        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 1200px; margin: 0 auto; align-items: center; }
+        .about-image { border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+        .about-image img { width: 100%; height: 480px; object-fit: cover; display: block; }
+        .about-text h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 1.5rem; color: var(--color-dark); }
+        .about-text p { color: #555; margin-bottom: 1.4rem; font-size: 1.03rem; line-height: 1.7; }
+        .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(0,0,0,0.1); }
+        .stat { text-align: center; }
+        .stat-number { font-family: var(--font-display); font-size: 2.4rem; color: var(--color-primary); font-weight: 700; }
+        .stat-label { font-size: 0.82rem; color: #666; margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* ===== CONTACT ===== */
+        .contact { background: white; }
+        .contact-wrapper { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; max-width: 1200px; margin: 0 auto; }
+        .contact-info h3 { font-family: var(--font-display); font-size: 2rem; margin-bottom: 1rem; }
+        .contact-info > p { color: #666; margin-bottom: 2rem; line-height: 1.6; }
+        .contact-details { list-style: none; }
+        .contact-details li { display: flex; align-items: flex-start; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid #eee; }
+        .contact-details .icon { width: 40px; height: 40px; background: var(--color-cream); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .contact-details li div { font-size: 0.95rem; }
+        .contact-details strong { display: block; margin-bottom: 0.15rem; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.75rem; }
+        .social-links a { width: 40px; height: 40px; background: rgba(0,0,0,0.07); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--color-dark); text-decoration: none; transition: background 0.3s, color 0.3s; font-size: 1rem; }
+        .social-links a:hover { background: var(--color-primary); color: white; }
+        .contact-form { background: var(--color-cream); padding: 2.5rem; border-radius: 12px; }
+        .form-group { margin-bottom: 1.4rem; }
+        .form-group label { display: block; margin-bottom: 0.45rem; font-weight: 500; font-size: 0.9rem; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 0.85rem 1rem; border: 1.5px solid #e0e0e0; border-radius: 8px;
+            font-family: var(--font-body); font-size: 0.95rem; transition: border-color 0.25s; background: white;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--color-primary); }
+        .form-group textarea { height: 130px; resize: vertical; }
+        .contact-form .btn-submit {
+            background: var(--color-primary); color: white; width: 100%; border: none;
+            padding: 1rem; font-size: 1rem; border-radius: 8px; font-weight: 600;
+            cursor: pointer; transition: background 0.3s; font-family: var(--font-body);
+        }
+        .contact-form .btn-submit:hover { background: #72770c; }
+
+        /* ===== FOOTER ===== */
+        .footer { background: #111; color: white; padding: 3rem 5% 1.5rem; }
+        .footer-content { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2rem; align-items: start; max-width: 1400px; margin: 0 auto; }
+        .footer-brand p { color: rgba(255,255,255,0.6); font-size: 0.85rem; max-width: 280px; margin-top: 1rem; line-height: 1.7; }
+        .footer-logo { height: 38px; width: auto; object-fit: contain; display: block; }
+        .footer-links h4 { font-family: var(--font-display); margin-bottom: 1rem; font-size: 0.95rem; color: rgba(255,255,255,0.9); }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 0.5rem; }
+        .footer-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.88rem; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--color-secondary); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); margin-top: 2rem; padding-top: 1.25rem; text-align: center; color: rgba(255,255,255,0.35); font-size: 0.82rem; line-height: 1.8; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .footer-content { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            /* Nav */
+            .nav { padding: 0.65rem 5%; }
+            .navbar-logo { height: 36px; }
+            .nav-links {
+                display: none; position: absolute; top: 100%; left: 0; right: 0;
+                background: rgba(248,246,241,0.98); backdrop-filter: blur(12px);
+                flex-direction: column; padding: 1.5rem 5%; gap: 0.25rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .nav-links.active { display: flex; }
+            .nav-links a { padding: 0.6rem 0; font-size: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); }
+            .nav-links li:last-child a { border-bottom: none; }
+            .mobile-menu-btn { display: flex; }
+
+            /* Sections */
+            section { padding: 4rem 5%; }
+            .section-header { margin-bottom: 2.5rem; }
+
+            /* Hero */
+            .hero { min-height: 100svh; }
+            .hero-description { font-size: 1rem; }
+            .hero-buttons { gap: 0.75rem; }
+            .btn { padding: 0.9rem 1.8rem; font-size: 0.95rem; }
+
+            /* Products */
+            .products-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .product-image { height: 200px; }
+
+            /* Catalog */
+            .catalog-grid { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+            .catalog-card-image { height: 160px; }
+            .catalog-card-body { padding: 1.1rem; }
+            .special-orders { padding: 1.5rem; }
+
+            /* Experience */
+            .experience-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .experience-card { padding: 2rem; }
+
+            /* About */
+            .about-content { grid-template-columns: 1fr; gap: 2.5rem; }
+            .about-image img { height: 320px; }
+            .about-stats { gap: 1.25rem; }
+
+            /* Contact */
+            .contact-wrapper { grid-template-columns: 1fr; gap: 2.5rem; }
+            .contact-form { padding: 1.75rem; }
+
+            /* Footer */
+            .footer-content { grid-template-columns: 1fr 1fr; }
+            .footer-brand { grid-column: 1 / -1; }
+            .footer-brand p { max-width: 100%; }
+        }
+
+        @media (max-width: 480px) {
+            .catalog-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; }
+            .catalog-filters { gap: 0.5rem; }
+            .filter-btn { font-size: 0.82rem; padding: 0.45rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <a href="#"><img src="fotos/logo/logo.JPG" alt="Oleoteka" class="navbar-logo"></a>
+        <div class="nav-right">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#produse">Produse</a></li>
+                <li><a href="#catalog">Catalog</a></li>
+                <li><a href="#experienta">Experiențe</a></li>
+                <li><a href="#despre">Despre Noi</a></li>
+                <li><a href="#contact" class="nav-cta">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Meniu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-subtitle">Direct din Spania în România</p>
+            <h1>Experiența Autentică a Gastronomiei Spaniole</h1>
+            <p class="hero-description">
+                Jamón Ibérico, brânzeturi artizanale, ulei de măsline și delicatese spaniole premium.
+                Produse la comandă pentru restaurante și experiențe complete: carving live, degustări ghidate și muzică live.
+            </p>
+            <div class="hero-buttons">
+                <a href="#catalog" class="btn btn-primary">Descoperă Produsele</a>
+                <a href="#experienta" class="btn btn-outline">Experiențele Noastre</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Categories -->
+    <section class="products" id="produse">
+        <div class="section-header">
+            <p class="section-tag">Selecție Premium</p>
+            <h2 class="section-title">Categoriile Noastre</h2>
+            <p class="section-description">Fiecare produs este selectat cu grijă din cele mai bune regiuni ale Spaniei, garantând autenticitate și calitate superioară.</p>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('fotos/jamon/Jamon.JPG');"></div>
+                <div class="product-content">
+                    <h3>Jamón & Embutidos</h3>
+                    <p>Paleta și lomo ibérico bellota, chorizo, salchichón, cecina — mezeluri artizanale din cele mai bune regiuni ale Spaniei.</p>
+                    <a href="#catalog" class="product-link">Vezi produsele →</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('fotos/Quesotabla/quesodatiles.JPG');"></div>
+                <div class="product-content">
+                    <h3>Brânzeturi Artizanale</h3>
+                    <p>Manchego DOP, Torremilano, queso con trufa negra — varietăți tradiționale perfecte pentru degustări și evenimente speciale.</p>
+                    <a href="#catalog" class="product-link">Vezi produsele →</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('fotos/productos/aceites/baena 2.png');"></div>
+                <div class="product-content">
+                    <h3>Ulei de Măsline & Conserve</h3>
+                    <p>Olibeas și Rosario extra virgin, măsline premium Gordal cu anșoa, ajos în borcan — savoarea mediteraneană autentică.</p>
+                    <a href="#catalog" class="product-link">Vezi produsele →</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('fotos/productos/embutidos/sobrasada iberica.png');"></div>
+                <div class="product-content">
+                    <h3>Delicatese & Altele</h3>
+                    <p>Sobrasada, cremă de manchego, membrillo — complemente perfecte pentru o tablă de brânzeturi sau cadouri gourmet.</p>
+                    <a href="#catalog" class="product-link">Vezi produsele →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog -->
+    <section class="catalog" id="catalog">
+        <div class="section-header">
+            <p class="section-tag">Catalog Produse</p>
+            <h2 class="section-title">Produsele Noastre</h2>
+            <p class="section-description">Contactează-ne pentru disponibilitate, prețuri și comenzi. Livrăm în toată România.</p>
+        </div>
+
+        <!-- Special / on-demand orders banner -->
+        <div class="special-orders">
+            <h3>Produse la comandă (import din Spania)</h3>
+            <p>Pe lângă stocul curent, putem aduce la comandă și alte specialități spaniole.</p>
+            <div class="special-list">
+                <span class="special-pill">Conserve de ton alb</span>
+                <span class="special-pill">Ventresca de ton</span>
+                <span class="special-pill">Sardine premium</span>
+                <span class="special-pill">Anșoa</span>
+                <span class="special-pill">Berberechos</span>
+                <span class="special-pill">Și alte delicatese</span>
+            </div>
+            <p class="special-note">
+                Putem aduce produse specifice la comandă pentru restaurante, evenimente sau clienți cu cerințe speciale.
+                Contactează-ne pentru ofertă, cantități minime și termen de livrare.
+            </p>
+            <div class="special-actions">
+                <a href="#contact" class="special-cta">Solicită ofertă personalizată</a>
+                <a href="https://wa.me/40779338396" target="_blank" rel="noopener noreferrer" class="special-cta-outline">Scrie-ne pe WhatsApp</a>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="catalog-filters">
+            <button class="filter-btn active" data-filter="all">Toate</button>
+            <button class="filter-btn" data-filter="jamon">Jamón & Embutidos</button>
+            <button class="filter-btn" data-filter="branzeturi">Brânzeturi</button>
+            <button class="filter-btn" data-filter="ulei">Ulei & Conserve</button>
+            <button class="filter-btn" data-filter="delicatese">Delicatese</button>
+        </div>
+
+        <div class="catalog-grid" id="catalogGrid"></div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience" id="experienta">
+        <div class="section-header">
+            <p class="section-tag">Servicii Premium</p>
+            <h2 class="section-title">Experiențe Unice</h2>
+            <p class="section-description">Mai mult decât produse — oferim experiențe complete care transportă invitații direct în inima Spaniei, cu muzică live, show-uri de dans și degustări ghidate.</p>
+        </div>
+        <div class="experience-grid">
+            <div class="experience-card">
+                <div class="experience-icon">🔪</div>
+                <h3>Carving Jamón Live</h3>
+                <p>Un cortador profesionist taie jamón-ul chiar în fața invitaților, explicând tehnica și povestea din spatele fiecărei felii.</p>
+                <ul class="experience-features">
+                    <li>Cortador profesionist</li>
+                    <li>Echipament profesional inclus</li>
+                    <li>Jamón de cea mai înaltă calitate</li>
+                    <li>Prezentare interactivă</li>
+                </ul>
+            </div>
+            <div class="experience-card">
+                <div class="experience-icon">🧀</div>
+                <h3>Degustare de Brânzeturi</h3>
+                <p>Demonstrație completă cu selecție de brânzeturi spaniole, explicații despre origini, tehnici de producție și sugestii de asociere.</p>
+                <ul class="experience-features">
+                    <li>5–7 varietăți premium</li>
+                    <li>Ghid de degustare</li>
+                    <li>Asocieri cu vin și dulcețuri</li>
+                    <li>Prezentare personalizată</li>
+                </ul>
+            </div>
+            <div class="experience-card">
+                <div class="experience-icon">🎸</div>
+                <h3>Experiența Completă</h3>
+                <p>Transformăm orice locație într-un colț de Spanie — muzică flamenco, decor tematic, meniu complet de tapas și atmosferă autentică.</p>
+                <ul class="experience-features">
+                    <li>Muzică live, DJ set sau playlist</li>
+                    <li>Decor și atmosferă spaniolă</li>
+                    <li>Meniu personalizat</li>
+                    <li>Coordonare completă</li>
+                </ul>
+            </div>
+        </div>
+        <div class="experience-cta">
+            <a href="#contact">Solicită o ofertă pentru evenimentul tău</a>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="despre">
+        <div class="about-content">
+            <div class="about-image">
+                <img src="fotos/logo/logo.JPG" alt="Tradiție spaniolă">
+            </div>
+            <div class="about-text">
+                <h2>Pasiunea pentru Autenticitate</h2>
+                <p>Am pornit din dorința de a aduce în România adevăratul gust al Spaniei – nu doar produse, ci povești, tradiții și experiențe care definesc cultura gastronomică iberică.</p>
+                <p>Lucrăm direct cu producători care păstrează de generații meșteșugul și pasiunea pentru gusturile autentice. De la jamón maturat lent și brânzeturi atent selecționate, până la uleiuri de măsline și delicatese tradiționale, fiecare produs spune o poveste.</p>
+                <p>Fie că organizați un eveniment de companie, o petrecere privată sau căutați produse premium pentru restaurantul dumneavoastră, aducem mai aproape gustul autentic și eleganța gastronomiei spaniole.</p>
+                <div class="about-stats">
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Import direct</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Produse</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Producători parteneri</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="section-header">
+            <p class="section-tag">Hai să vorbim</p>
+            <h2 class="section-title">Contactează-ne</h2>
+            <p class="section-description">Pregătit să aduci Spania la evenimentul tău? Completează formularul sau contactează-ne direct.</p>
+        </div>
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <h3>Detalii Contact</h3>
+                <p>Răspundem în maxim 24 de ore. Pentru urgențe, sună-ne direct.</p>
+                <ul class="contact-details">
+                    <li>
+                        <span class="icon">📍</span>
+                        <div><strong>Adresă</strong>Cluj-Napoca, România</div>
+                    </li>
+                    <li>
+                        <span class="icon">📞</span>
+                        <div><strong>Telefon</strong><a href="tel:+40779338396" style="color:inherit; text-decoration:none;">+40 779 338 396</a></div>
+                    </li>
+                    <li>
+                        <span class="icon">✉️</span>
+                        <div><strong>Email</strong><a href="mailto:oleoteka@gmail.com" style="color:inherit; text-decoration:none;">oleoteka@gmail.com</a></div>
+                    </li>
+                    <li>
+                        <span class="icon">🕐</span>
+                        <div><strong>Program</strong>Luni – Vineri: 9:00 – 18:00</div>
+                    </li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://facebook.com/oleoteka.ro" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+                    <a href="https://instagram.com/oleoteka.ro" target="_blank" rel="noopener noreferrer" aria-label="Instagram">📷</a>
+                    <a href="https://wa.me/40779338396" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">💬</a>
+                </div>
+            </div>
+            <form class="contact-form" id="contactForm" novalidate>
+                <div class="form-group">
+                    <label for="name">Nume complet *</label>
+                    <input type="text" id="name" name="name" required placeholder="Ion Popescu">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required placeholder="email@exemplu.ro">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefon</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+40 7XX XXX XXX">
+                </div>
+                <div class="form-group">
+                    <label for="interest">Ce te interesează?</label>
+                    <select id="interest" name="interest">
+                        <option value="">Selectează...</option>
+                        <option value="carving">Carving Jamón Live</option>
+                        <option value="degustare">Degustare Brânzeturi</option>
+                        <option value="experienta">Experiență Completă</option>
+                        <option value="produse">Comandă Produse</option>
+                        <option value="horeca">Produse la comandă (Horeca)</option>
+                        <option value="altele">Altceva</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mesaj *</label>
+                    <textarea id="message" name="message" placeholder="Spune-ne despre evenimentul tău, număr de invitați, dată dorită sau produsele la comandă..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Trimite Mesajul</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="#"><img src="fotos/logo/logo.JPG" alt="Oleoteka" class="footer-logo"></a>
+                <p>Aducem autenticitatea gastronomiei spaniole în România. Produse premium, experiențe unice.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Navigare</h4>
+                <ul>
+                    <li><a href="#produse">Produse</a></li>
+                    <li><a href="#catalog">Catalog</a></li>
+                    <li><a href="#experienta">Experiențe</a></li>
+                    <li><a href="#despre">Despre Noi</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Servicii</h4>
+                <ul>
+                    <li><a href="#experienta">Carving Live</a></li>
+                    <li><a href="#experienta">Degustări</a></li>
+                    <li><a href="#contact">Evenimente de companie</a></li>
+                    <li><a href="#contact">Nunți & Petreceri</a></li>
+                    <li><a href="#contact">Horeca & Restaurante</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="termeni-si-conditii.html">Termeni și Condiții</a></li>
+                    <li><a href="politica-confidentialitate.html">Politica de Confidențialitate</a></li>
+                    <li><a href="https://anpc.ro/" target="_blank" rel="noopener noreferrer">ANPC</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Oleoteka · Toate drepturile rezervate · Cluj-Napoca, România</p>
+        </div>
+    </footer>
+
+    <script>
+    const products = [
+        { id:1,  name:"Paleta Altanza Bellota 100% Ibérica",         category:"jamon",      image:"fotos/productos/jamon/altanza bellota.png",               badge:"Bellota",    desc:"Paleta de bellota 100% iberică Altanza, maturată artizanal. Aromă intensă, textură fină." },
+        { id:2,  name:"Lomo Bellota 100% IB Beher ½ pz",             category:"jamon",      image:"fotos/productos/embutidos/lomo bellota beher.png",         badge:"Bellota",    desc:"Lomo de bellota 100% ibérico Beher, jumătate de piesă. Savoare autentică extremeñă." },
+        { id:3,  name:"Lomo Cebo de Campo IB Altanza ½ pz",          category:"jamon",      image:"fotos/productos/embutidos/Lomo cebo de campo altanza medio.png", badge:"Ibérico", desc:"Lomo cebo de campo ibérico Altanza, jumătate de piesă. Calitate premium." },
+        { id:4,  name:"Lomo Cebo de Campo IB Altanza Entero",         category:"jamon",      image:"fotos/productos/embutidos/Lomo cebo de campo altanza.png", badge:"Ibérico",    desc:"Lomo cebo de campo ibérico Altanza, piesă întreagă. Ideal pentru restaurante și evenimente." },
+        { id:5,  name:"Salchichón Bellota Ibérico Cular Beher ½ pz", category:"jamon",      image:"fotos/productos/embutidos/salam bellota beher.png",        badge:"Bellota",    desc:"Salchichón cular de bellota ibérico Beher, jumătate de piesă. Gust delicat și rafinat." },
+        { id:6,  name:"Salchichón Bellota Ibérico Altanza ½ pz",     category:"jamon",      image:"fotos/productos/embutidos/salam bellota altanza.png",      badge:"Bellota",    desc:"Salchichón cular de bellota ibérico Altanza. Textură fină, aromă de ghindă." },
+        { id:7,  name:"Longaniza de Palles Cerezo",                   category:"jamon",      image:"fotos/productos/embutidos/salam pages cerezo.png",         badge:null,         desc:"Longaniza tradițională Cerezo, rețetă artizanală spaniolă. Perfectă pentru tapas." },
+        { id:8,  name:"Chorizo Cular Bellota 100% Ibérico Beher ½",  category:"jamon",      image:"fotos/productos/embutidos/chorizo bellota beher.png",      badge:"Bellota",    desc:"Chorizo cular de bellota 100% ibérico Beher. Aromă de boia și pimenton de calitate supremă." },
+        { id:9,  name:"Chorizo Cular Bellota Ibérico Altanza ½",     category:"jamon",      image:"fotos/productos/embutidos/chorizo bellota alanza.png",     badge:"Bellota",    desc:"Chorizo cular de bellota ibérico Altanza. Aromă intensă, gust autentic spaniol." },
+        { id:10, name:"Cecina León IGP ½ Piesă",                     category:"jamon",      image:"fotos/productos/embutidos/cecina.png",                     badge:"IGP",        desc:"Cecina de León cu indicație geografică protejată. Carne de vită maturată artizanal." },
+        { id:11, name:"Sobrasada Ibérică Tarrina 240g",               category:"jamon",      image:"fotos/productos/embutidos/sobrasada iberica.png",          badge:null,         desc:"Sobrasada ibérică din Mallorca, 240g. Perfectă întinsă pe pâine sau în gătit." },
+        { id:12, name:"Queso Aldonza Manchego Curado Entero",         category:"branzeturi", image:"fotos/productos/Quesos/Manchego curado aldonza.png",       badge:"DOP",        desc:"Queso manchego curado Aldonza, roată întreagă. Textură fermă, gust complex de lapte de oaie." },
+        { id:13, name:"Queso Torremilano Oveja Gran Reserva",         category:"branzeturi", image:"fotos/productos/Quesos/Oveja viejo torremilano.png",       badge:"Reserva",    desc:"Brânză de oaie gran reserva Torremilano. Maturată îndelungat, aromă intensă." },
+        { id:14, name:"Queso Marantona Viejo Manchego",               category:"branzeturi", image:"fotos/productos/Quesos/Manchego viejo Marantona.png",      badge:null,         desc:"Queso manchego viejo Marantona. Cel mai maturat manchego — uscat, intens, cristalizat." },
+        { id:15, name:"Torremilano Semicurado Oveja ½",               category:"branzeturi", image:"fotos/productos/Quesos/Oveja semicurado .png",             badge:null,         desc:"Brânză de oaie semicurado Torremilano, jumătate. Moale, cremoasă, ușor acidulată." },
+        { id:16, name:"Torremilano Semicurado Oveja Entero",          category:"branzeturi", image:"fotos/productos/Quesos/Oveja semicurado .png",             badge:null,         desc:"Brânză de oaie semicurado Torremilano, roată întreagă. Ideală pentru degustări." },
+        { id:17, name:"Queso Oveja cu Trufă Neagră 550g",             category:"branzeturi", image:"fotos/productos/Quesos/oveja trufa.png",                   badge:"Trufă",      desc:"Brânză de oaie cu trufă neagră, 550g. O combinație rafinată și spectaculoasă." },
+        { id:18, name:"Queso Torta Gran Casar",                       category:"branzeturi", image:"fotos/productos/Quesos/Torta del casar.png",               badge:"DOP",        desc:"Torta del Casar DOP — brânză cremoasă extremeñă, servită deschisă ca fondue natural." },
+        { id:19, name:"Torremilano Cabra Pasteurizado Semi",          category:"branzeturi", image:"fotos/productos/Quesos/cabra semicurado.png",              badge:null,         desc:"Brânză de capră pasteurizată semicurado Torremilano. Proaspătă, ușoară și aromată." },
+        { id:20, name:"Don Ismael Oveja Semi al Chili",               category:"branzeturi", image:"fotos/productos/Quesos/oveja semicurado chili.png",        badge:null,         desc:"Brânză de oaie semi cu chili Don Ismael. Combinație îndrăzneață de picant și lapte de oaie." },
+        { id:21, name:"Aceite Olibeas Virgen Extra 0,5L",             category:"ulei",       image:"fotos/productos/aceites/olibeas medio.png",                badge:"Virgen Extra",desc:"Ulei de măsline extra virgin Olibeas, 500ml. Presare la rece, arome proaspete." },
+        { id:22, name:"Aceite Rosario D.O. Baena Lată 2,5L",         category:"ulei",       image:"fotos/productos/aceites/baena 2.png",                      badge:"D.O. Baena", desc:"Ulei de măsline Rosario D.O. Baena, lată 2,5L. Denumire de origine, calitate garantată." },
+        { id:23, name:"Aceite Rosario D.O. Baena Sticlă 0,5L",       category:"ulei",       image:"fotos/productos/aceites/baena medio.png",                  badge:"D.O. Baena", desc:"Ulei de măsline Rosario D.O. Baena, sticlă 500ml. Format ideal pentru uz zilnic." },
+        { id:24, name:"Oliva Rellena Anchoa Lată 370g",               category:"ulei",       image:"fotos/productos/Olivas y latas/rellena anchoa.png",        badge:null,         desc:"Măsline umplute cu anșoa, lată 370g. Un clasic al tapas-ului spaniol." },
+        { id:25, name:"Oliva Gazpacha Tarrina 1,3L / 800g",           category:"ulei",       image:"fotos/productos/Olivas y latas/gazpachas.png",             badge:null,         desc:"Măsline gazpacha marinate tradițional, tarrina mare. Perfecte pentru evenimente." },
+        { id:26, name:"Ajos Tarro Cristal 415g",                      category:"ulei",       image:"fotos/productos/Olivas y latas/ajos.png",                  badge:null,         desc:"Usturoi în borcan de sticlă, 415g. Conservat în ulei — comod și aromat." },
+        { id:27, name:"Cremă Queso Manchego La Casota 200g",          category:"delicatese", image:"fotos/productos/Quesos/Crema queso manchego.png",          badge:null,         desc:"Cremă de queso manchego La Casota, 200g. Perfectă pe crackers sau pâine artizanală." },
+        { id:28, name:"Membrillo Natural Tarrina Cristal",             category:"delicatese", image:"fotos/productos/embutidos/sobrasada iberica.png",          badge:null,         desc:"Membrillo (pastă de gutui) natural în borcan de cristal. Asociere clasică cu manchego." },
+    ];
+
+    const categoryLabels = {
+        jamon: 'Jamón & Embutidos',
+        branzeturi: 'Brânzeturi',
+        ulei: 'Ulei & Conserve',
+        delicatese: 'Delicatese'
+    };
+
+    function renderCatalog(filter = 'all') {
+        const grid = document.getElementById('catalogGrid');
+        const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+        grid.innerHTML = filtered.map(p => `
+            <div class="catalog-card" data-category="${p.category}">
+                <div class="catalog-card-image">
+                    <img src="${p.image}" alt="${p.name}" loading="lazy">
+                    ${p.badge ? `<span class="catalog-card-badge">${p.badge}</span>` : ''}
+                </div>
+                <div class="catalog-card-body">
+                    <div class="catalog-card-category">${categoryLabels[p.category] || p.category}</div>
+                    <div class="catalog-card-name">${p.name}</div>
+                    <div class="catalog-card-desc">${p.desc}</div>
+                    <div class="catalog-card-footer">
+                        <a href="#contact" class="catalog-card-cta">Solicită ofertă →</a>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Catalog filters
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderCatalog(btn.dataset.filter);
+        });
+    });
+
+    // Scroll nav
+    window.addEventListener('scroll', () => {
+        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    // Mobile menu
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    mobileBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => navLinks.classList.remove('active'));
+    });
+
+    // Contact form
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const btn = e.target.querySelector('.btn-submit');
+        btn.textContent = 'Mesaj trimis! ✓';
+        btn.style.background = '#27ae60';
+        btn.disabled = true;
+        setTimeout(() => {
+            btn.textContent = 'Trimite Mesajul';
+            btn.style.background = '';
+            btn.disabled = false;
+            e.target.reset();
+        }, 3000);
+    });
+
+    renderCatalog();
+    </script>
+</body>
+</html>
